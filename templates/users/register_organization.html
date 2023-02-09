@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<img src="{% static 'homepage/cat.webp' %}" width="100%" height="100%">
+<hr>
+<div class="row row-cols-3 g-2">
+    {% for item in items %}
+    <div class="col">
+        {% include "includes/item_preview.html" %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

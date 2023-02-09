@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="card shadow">
+    <img src="{{item.get_img.url}}" class="bd-placeholder-img card-img-top">
+    <div class="card-body">
+        <h5>{{ item.category }}</h5>
+        <hr>
+        <h3><a href="{% url 'catalog:item_detail' item_id=item.id %}">{{ item.name }}</a></h3>
+        <hr>
+        <p class="card-text">{{ item.text|safe|truncatewords_html:10 }}</p>
+        <hr>
+        {% for tag in item.tags.all %}
+        #{{ tag.name }}
+        {% endfor %}
+    </div>
+</div>

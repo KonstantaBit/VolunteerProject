@@ -1,0 +1,14 @@
+{% load static %}
+
+{% url 'homepage:home' as act_home %}
+
+<header class="p-1 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex justify-content-left py-1">
+                    <img class="px-2" src="{% static 'favicon/favicon.ico' %}">
+            <ul class="nav nav-pills">
+                <li><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-{% if request.path == act_home %}white{% else %}secondary{% endif %}">На главную</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
