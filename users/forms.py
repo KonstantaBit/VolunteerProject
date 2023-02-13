@@ -3,21 +3,52 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class RegistrationForm(UserCreationForm):
-    username = forms.CharField(label='Логин')
-    email = forms.EmailField(label='Эл. почта')
-    first_name = forms.CharField(label='Имя')
-    last_name = forms.CharField(label='Фамилия')
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
-    password_repeat = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput)
+class VolunteerRegistrationForm(UserCreationForm):
+    pass
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "email", "first_name", "last_name", "password", "password_repeat")
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+        }
 
-    def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-        return user
+        fields = ('username', 'email', 'first_name', 'last_name')
+
+
+class ValidatorRegistrationForm(UserCreationForm):
+    pass
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+        }
+
+        fields = ('username', 'email', 'first_name', 'last_name')
+
+
+class OrganizationRegistrationForm(UserCreationForm):
+    pass
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
+        }
+
+        fields = ('username', 'email', 'first_name', 'last_name')

@@ -1,14 +1,15 @@
 {% load static %}
 
-{% url 'homepage:home' as act_home %}
+{% url 'homepage:home' as homepage_home %}
 
-<header class="p-1 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex justify-content-left py-1">
-                    <img class="px-2" src="{% static 'favicon/favicon.ico' %}">
-            <ul class="nav nav-pills">
-                <li><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-{% if request.path == act_home %}white{% else %}secondary{% endif %}">На главную</a></li>
-            </ul>
-        </div>
+<header class="p-1 text-white" style="background: #0C0B10;">
+    <div class="d-flex justify-content-center py-1">
+                <img class="px-2" src="{% static 'favicon/favicon.ico' %}">
+        <ul class="nav nav-pills nav-fill">
+            <li><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-{% if request.path == homepage_home %}white{% else %}secondary{% endif %}">Главная</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="\logout" class="nav-link px-2 text-secondary">Выйти</a></li>
+            {% endif %}
+        </ul>
     </div>
 </header>

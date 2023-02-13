@@ -3,13 +3,20 @@
 {% load static %}
 
 {% block content %}
-<img src="{% static 'homepage/cat.webp' %}" width="100%" height="100%">
-<hr>
-<div class="row row-cols-3 g-2">
-    {% for item in items %}
-    <div class="col">
-        {% include "includes/item_preview.html" %}
+{% if not user.is_authenticated %}
+<div class="card blockky" style="background: #C5C6C7;">
+    <div class="card-body text-center">
+        <a href="{% url 'users:login' %}">Войти</a>
     </div>
-    {% endfor %}
 </div>
+<div class="card blockky" style="background: #C5C6C7;">
+    <div class="card-body text-center">
+        <h4>Вы можете зарегистрироваться как:</h4>
+        <hr>
+        <h5><a href="{% url 'users:reg_vol' %}">Волонтёр</a></h5>
+        <h5><a href="{% url 'users:reg_val' %}">Проверяющий</a></h5>
+        <h5><a href="{% url 'users:reg_org' %}">Организация</a></h5>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

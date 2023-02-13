@@ -3,10 +3,25 @@
 {% load static %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-</form>
+<h3 class="text-white blockky" style="text-align:center;">Вход</h3>
+<div class="card shadow border-nuke border-3 blockky" style="background: #C5C6C7;">
+    <div class="card-body">
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="Username" class="form-label">Логин</label>
+                <input class="form-control" name="username" id="id_username">
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" name="password" id="id_password">
+                <div id="passwordHelp" class="form-text">Нет аккаунта? Создайте <a
+                        href="{% url 'users:reg_vol'%}">тут</a></div>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn" style="background: #45A29E;">Войти</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
