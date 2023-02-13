@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="row lg-2">
+    <div class="col py-3">
+        <div class="card shadow border-3 blockky text-white"
+             style="background: #27323f; border-color: #2f3c4c !important;">
+            <div class="card-body" style="text-align:center;">
+                {% if account_user.profile.photo %}
+                <img src="{{c_user.profile.photo.url}}" width="100%" height="400">
+                {% else %}
+                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="100%"
+                     height="400"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#eee"></rect>
+                    <text x="40%" y="49%" fill="#aaa" dy=".3em">300x400</text>
+                </svg>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col py-3">
+        <div class="card shadow border-3 blockky text-white"
+             style="background: #27323f; border-color: #2f3c4c !important;">
+            <div class="card-body" style="text-align:center;">
+                {% if account_user.organization %}
+                <h5>Ваши вакансии:</h5>
+                <hr>
+                {% for task in tasks %}
+                <div class="card shadow border-nuke border-1 blockky-null" style="background: #B5B6B7;">
+                    <div class="card-body">
+                        <p style="color: #000000;">{{ task.name }}</p>
+                        <img class="rounded-3" src="{{ task.photo.url }}" width="100%" height="100%">
+                    </div>
+                </div>
+                {% endfor %}
+                <a href="{% url 'catalog:add_task'%}" class="btn d-grid py-1" style="background: #45A29E;">Добавить вакансию</a>
+                {% elif account_user.validator %}
+                ;4
+                {% elif account_user.volunteer %}
+                lp
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

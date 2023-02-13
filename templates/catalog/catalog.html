@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+{% for task in tasks %}
+<div class="card shadow border-nuke border-3 blockky850 text-white"
+     style="background: #27323f; border-color: #2f3c4c !important;">
+    <div class="card-body">
+        <div class="row justify-content-left py-2">
+            <div class="col-2">
+                {% if task.organization.photo %}
+                <img class="rounded-circle" src="{{ task.organization.photo.url }}" width="50" height="50">
+                {% else %}
+                <svg class="rounded-circle bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                     xmlns="http://www.w3.org/2000/svg" role="img" width="50" height="50" focusable="false">
+                    <rect width="50" height="50" fill="#eee"></rect>
+                </svg>
+                {% endif %}
+            </div>
+            <div class="col">
+                <p>{{ task.organization.user }}</p>
+            </div>
+        </div>
+        <img class="rounded-3 border-nuke border-2" src="{{ task.photo.url }}" width="100%" height="100%">
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

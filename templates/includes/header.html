@@ -1,13 +1,17 @@
 {% load static %}
 
 {% url 'homepage:home' as homepage_home %}
+{% url 'users:account' user.id as users_account %}
+{% url 'catalog:catalog' as catalog %}
 
 <header class="p-1 text-white" style="background: #0C0B10;">
     <div class="d-flex justify-content-center py-1">
                 <img class="px-2" src="{% static 'favicon/favicon.ico' %}">
         <ul class="nav nav-pills nav-fill">
             <li><a href="{% url 'homepage:home' %}" class="nav-link px-2 text-{% if request.path == homepage_home %}white{% else %}secondary{% endif %}">Главная</a></li>
+            <li><a href="{% url 'catalog:catalog' %}" class="nav-link px-2 text-{% if request.path == catalog %}white{% else %}secondary{% endif %}">Каталог</a></li>
             {% if user.is_authenticated %}
+            <li><a href="{% url 'users:account' user.id %}" class="nav-link px-2 text-{% if request.path == users_account %}white{% else %}secondary{% endif %}">Личный кабинет</a></li>
             <li><a href="\logout" class="nav-link px-2 text-secondary">Выйти</a></li>
             {% endif %}
         </ul>

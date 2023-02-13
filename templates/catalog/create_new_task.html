@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+    <h3 class="text-white blockky-650" style="text-align:center; width: 650px;">Новая вакансия</h3>
+    <div class="card shadow border-nuke border-3 blockky" style="background: #C5C6C7;">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="row g-3 align-items-center">
+
+                    <p style="text-align:center;">{{ field.label }}</p>
+
+                    {{ field }}
+                    <span id="passwordHelpInline" class="form-text">
+                        {{ field.help_text }}
+                    </span>
+                    {% if field.errors %}
+                        <p class="form-text" style="color: blue;">{{ field.errors }}</p>
+                    {% endif %}
+                </div>
+                <hr>
+                {% endfor %}
+                <div class="d-grid">
+                    <button type="submit" class="btn" style="background: #45A29E;">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

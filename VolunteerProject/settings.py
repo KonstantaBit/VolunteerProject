@@ -16,7 +16,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['192.168.1.12']
+ALLOWED_HOSTS = ['192.168.1.12', '127.0.0.1']
 
 
 # Application definition
@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'sorl.thumbnail',
 
     'homepage.apps.HomepageConfig',
     'catalog.apps.CatalogConfig',
@@ -118,5 +120,13 @@ STATIC_ROOT = 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Users
+
+LOGIN_URL = 'users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Media files (Images)
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'

@@ -3,4 +3,7 @@ from . import views
 
 app_name = 'catalog'
 
-urlpatterns = []
+urlpatterns = [
+    path('add', views.add_task, name='add_task'),
+    path('', views.catalog, name='catalog')
+]

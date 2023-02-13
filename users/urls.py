@@ -10,4 +10,5 @@ urlpatterns = [
     path('singup/validator', views.reg_validator, name='reg_val'),
     path('singup/organization', views.reg_organization, name='reg_org'),
     path('login', LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('account/<int:id>', views.personal_account, name='account'),
 ]
