@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.shortcuts import render, redirect
 
+from catalog.models import Task
 from .forms import VolunteerRegistrationForm, ValidatorRegistrationForm, OrganizationRegistrationForm
 from .models import Volunteer, Validator, Organization, User
-from catalog.models import Task
 
 
 def reg_volunteer(request):
@@ -33,7 +33,7 @@ def reg_validator(request):
 
 
 def reg_organization(request):
-    form = VolunteerRegistrationForm()
+    form = OrganizationRegistrationForm()
     if request.method == 'POST':
         formed = OrganizationRegistrationForm(request.POST)
         if formed.is_valid():

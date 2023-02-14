@@ -3,7 +3,12 @@ from .models import Task
 
 
 class CreateNewTask(forms.Form):
-    name = forms.CharField(label='Наименование', max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}),)
+    name = forms.CharField(
+        label='Наименование',
+        max_length=128,
+        widget=forms.TextInput(attrs={'class': 'form-control'}
+                               ),
+    )
     description = forms.CharField(
         label='Описание',
         max_length=1024,
@@ -15,19 +20,19 @@ class CreateNewTask(forms.Form):
         label='Общее вознаграждение',
         widget=forms.TextInput(
             attrs={'class': 'form-control', 'placeholder': 'Целое положительное число'}
-        )
-    )
-    limiter = forms.CharField(
-        label='Лимит участников',
-        widget=forms.TextInput(
-            attrs={'class': 'form-control', 'placeholder': 'Целое положительное число'}
-        )
+        ),
     )
 
     photo = forms.ImageField(
         label='Превью',
     )
 
+    beginning = forms.DateTimeField(
+        label='Время начала',
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+    )
 
-class EditTask(forms.Form):
-    pass
+    class Meta:
+        model = Task
