@@ -4,6 +4,7 @@
 
 {% block content %}
 {% for task in tasks %}
+{% if user not in task.users.all%}
 <div class="card shadow border-nuke border-3 blockky850 text-white"
      style="background: #27323f; border-color: #2f3c4c !important;">
     <div class="card-body">
@@ -19,11 +20,10 @@
                 {% endif %}
             </div>
             <div class="col">
-                <p>{{ task.organization.name }} | {{ task.name }}</p>
+                <a style="color: #EEEEEE;" href="{% url 'users:account' task.organization.id %}">{{ task.organization.name }} | {{ task.name }}</a>
             </div>
         </div>
         <img class="rounded-3 border-nuke border-2" src="{{ task.photo.url }}" width="100%" height="100%">
-        <p> Начинается: {{ task.beginning }}</p>
         <p> Общая награда: {{ task.award }}</p>
         <p> Подробнее: {{ task.description }}</p>
         <hr>
@@ -39,8 +39,17 @@
                 </button>
             </div>
         </form>
+        {% elif user.organization and user.organization == task.organization %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="d-grid">
+                <button type="submit" name="drop" value="{{ task.id }}" class="btn" style="background: #45A29E;">Закончить мероприятие
+                </button>
+            </div>
+        </form>
         {% endif %}
     </div>
 </div>
+{% endif%}
 {% endfor %}
 {% endblock %}

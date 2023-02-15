@@ -7,9 +7,17 @@ def catalog(request):
     tasks = Task.objects.all()
     if request.method == "POST":
         if request.POST.get("take"):
-            task = Task.objects.get(id=int(request.POST.get("take")) - 1,)
+            task = Task.objects.get(id=int(request.POST.get("take")))
             task.users.add(request.user.volunteer)
             task.save()
+
+        if request.POST.get("drop"):
+            print(request.POST.get("drop"))
+            task = Task.objects.get(id=int(request.POST.get("drop")))
+            for person in task.users.all():
+                person.volunteer.points += task.award
+                person.volunteer.save()
+            task.delete()
     return render(request, "catalog/catalog.html", {'tasks': tasks})
 
 

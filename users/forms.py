@@ -31,3 +31,11 @@ class ValidatorRegistrationForm(AbstractRegistrationForm):
 class OrganizationRegistrationForm(AbstractRegistrationForm):
     pass
 
+
+class EditProfileForm(forms.Form):
+    phone = forms.CharField()
+    description = forms.CharField()
+    photo = forms.ImageField()
+    address = forms.CharField()
+    name = forms.CharField()
+

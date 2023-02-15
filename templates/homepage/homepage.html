@@ -3,6 +3,30 @@
 {% load static %}
 
 {% block content %}
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+        <h1 class="display-5 fst-italic">Ремарка от разработчиков:</h1>
+        <p class="lead my-3">Медиа-файлы взяты с открытых ресурсов сети интернет,
+            а компании и вакансии вымышлены и являются примером</p>
+        <p class="lead mb-0"><a href="" class="text-white fw-bold">Спасибо за понимание</a></p>
+    </div>
+</div>
+<div class="row g-5 text-white">
+    <div class="col">
+        <h2 class="pb-4 mb-4 border-bottom">Визитка</h2>
+
+        <article class="blog-post">
+            <h4 class="blog-post-title">Мы предоставляем:</h4>
+            <p><strong>Волонтерам: </strong> Удобную площадку реализации своей деятельности, льготы</p>
+            <p><strong>Организациям: </strong>Заинтерисованных волонтеров и платформу для их организации</p>
+            <hr>
+            <h4 class="blog-post-title">Результаты:</h4>
+            <p>Мы создали удобную платформу взаимодействия государства,
+                волонтерских организаций и добровольцев с целью стимулировать добровольческое движение в России.</p>
+            <img src="{% static 'homepage/home_1.jpg' %}" height="100%" width="100%">
+        </article>
+    </div>
+</div>
 {% if not user.is_authenticated %}
 <div class="card blockky" style="background: #C5C6C7;">
     <div class="card-body text-center">

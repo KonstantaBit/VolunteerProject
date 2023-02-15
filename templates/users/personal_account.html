@@ -8,8 +8,12 @@
     <div class="card-body" style="text-align:center;">
         <div class="row lg-2">
             <div class="col">
-                {% if account_user.profile.photo %}
-                <img src="{{c_user.profile.photo.url}}" width="100%" height="400">
+                {% if account_user.organization.photo %}
+                <img src="{{account_user.organization.photo.url}}" width="100%" height="400">
+                {% elif account_user.volunteer.photo %}
+                <img src="{{account_user.volunteer.photo.url}}" width="100%" height="400">
+                {% elif account_user.validator.photo %}
+                <img src="{{account_user.validator.photo.url}}" width="100%" height="400">
                 {% else %}
                 <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="100%"
                      height="400"
@@ -31,34 +35,120 @@
                 <p>Адрес: {{ account_user.organization.address }}</p>
                 <p>Подробнее: {{ account_user.organization.description }}</p>
                 {% elif account_user.validator %}
+                <p> Ответственный: {{ account_user.first_name }} {{ account_user.last_name }}</p>
+                <hr>
+                <p>Номер телефона: {{ account_user.validator.phone }}</p>
+                <p>Подробнее: {{ account_user.validator.description }}</p>
                 {% elif account_user.volunteer %}
+                <p> Волонтер: {{ account_user.first_name }} {{ account_user.last_name }} ( {{ account_user.username }} )</p>
+                <hr>
+                <p>Номер телефона: {{ account_user.volunteer.phone }}</p>
+                <p>Подробнее: {{ account_user.volunteer.description }}</p>
+                <p>Очки: {{ account_user.volunteer.points }}</p>
                 {% endif %}
+                {% if user.id == account_user.id %}
+                <a href="{% url 'users:edit' user.id %}" class="bnt bnt-warning">Изменить информацию</a>
+                {% endif%}
             </div>
         </div>
     </div>
 </div>
+<div class="row py-2">
+    <div class="col">
+        <div class="card shadow border-3 blockky850 text-white"
+             style="background: #27323f; border-color: #2f3c4c !important;">
+            <div class="card-body" style="text-align:center;">
+                {% if account_user.organization %}
+                <h5>Ваши вакансии:</h5>
+                <hr>
+                <div class="row cols-2">
+                    {% for task in tasks %}
+                    <div class="col">
+                        <div class="card shadow border-nuke border-1 blockky-null" style="background: #B5B6B7;">
+                            <div class="card-body">
+                                <p style="color: #000000;">{{ task.name }}</p>
+                                <img class="rounded-3" src="{{ task.photo.url }}" width="100%" height="100%">
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if user.id == account_user.id %}
+                <a href="{% url 'catalog:add_task'%}" class="btn d-grid py-1" style="background: #45A29E;">Добавить
+                    вакансию</a>
+                {% endif %}
+                {% elif account_user.validator %}
+                <h5>Транзакции для проверки:</h5>
+                <hr>
+                {% for task in tasks %}
+                <div class="card shadow border-nuke border-1 blockky-null" style="background: #B5B6B7;">
+                    <div class="card-body">
+                        <p style="color: #000000;">{{ task.name }}</p>
+                        <img class="rounded-3" src="{{ task.photo.url }}" width="100%" height="100%">
+                    </div>
+                </div>
+                {% endfor %}
+                <a href="{% url 'catalog:add_task'%}" class="btn d-grid py-1" style="background: #45A29E;">Добавить
+                    вакансию</a>
+                {% elif account_user.volunteer %}
+                <h5>Текущие задания:</h5>
+                <hr>
+                {% for task in tasks_to_u %}
+                <div class="card shadow border-nuke border-1 blockky-null" style="background: #B5B6B7;">
+                    <div class="card-body">
+                        <p style="color: #000000;">{{ task.name }}</p>
+                        <img class="rounded-3" src="{{ task.photo.url }}" width="100%" height="100%">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div class="d-grid">
+                                <button type="submit" name="cancel" value="{{ task.id }}" class="btn"
+                                        style="background: #45A29E;">Отказаться
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-<div class="card shadow border-3 blockky text-white"
-     style="background: #27323f; border-color: #2f3c4c !important;">
-    <div class="card-body" style="text-align:center;">
-        {% if account_user.organization %}
-        <h5>Ваши вакансии:</h5>
-        <hr>
-        {% for task in tasks %}
-        <div class="card shadow border-nuke border-1 blockky-null" style="background: #B5B6B7;">
-            <div class="card-body">
-                <p style="color: #000000;">{{ task.name }}</p>
-                <img class="rounded-3" src="{{ task.photo.url }}" width="100%" height="100%">
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
-        {% endfor %}
-        <a href="{% url 'catalog:add_task'%}" class="btn d-grid py-1" style="background: #45A29E;">Добавить
-            вакансию</a>
-        {% elif account_user.validator %}
-        ;4
-        {% elif account_user.volunteer %}
-        lp
-        {% endif %}
     </div>
+    {% if account_user.volunteer and user.is_authenticated%}
+    <div class="col py-2">
+        <div class="card shadow border-3 blockky text-white"
+             style="background: #27323f; border-color: #2f3c4c !important;">
+            <div class="card-body" style="text-align:center;">
+                <h5>Льготы:</h5>
+                <hr>
+                {% for benefit in benefits %}
+                <div class="card shadow border-nuke border-1 blockky-null" style="background: #B5B6B7;">
+                    <div class="card-body">
+                        <p style="color: #000000;">Название: {{ benefit.name }}</p>
+                        <p style="color: #000000;">Описание: {{ benefit.description }}</p>
+                        <p style="color: #000000;">Стоимость: {{ benefit.cost }}</p>
+                        {% if benefit not in account_user.volunteer.benefits.all%}
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div class="d-grid">
+                                <button type="submit" name="buy" value="{{ benefit.id }}" class="btn"
+                                        style="background: #45A29E;">Купить
+                                </button>
+                            </div>
+                        </form>
+                        {% else %}
+                        <div class="d-grid">
+                            <button type="submit" name="buy" value="{{ task.id }}" class="btn bnt-warning"
+                                    style="background: #f5e042;">Куплено
+                            </button>
+                        </div>
+                        {% endif%}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

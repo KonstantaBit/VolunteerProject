@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from store.models import Benefit
 
 
 class AbstractFullUser(models.Model):
@@ -13,11 +14,12 @@ class AbstractFullUser(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.user
+        return self.user.__str__()
 
 
 class Volunteer(AbstractFullUser):
-    pass
+    points = models.IntegerField(default=0)
+    benefits = models.ManyToManyField(Benefit, blank=True)
 
 
 class Organization(AbstractFullUser):

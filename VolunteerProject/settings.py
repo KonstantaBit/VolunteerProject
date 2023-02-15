@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
 
     'homepage.apps.HomepageConfig',
+    'store.apps.StoreConfig',
     'catalog.apps.CatalogConfig',
     'users.apps.UsersConfig',
 ]

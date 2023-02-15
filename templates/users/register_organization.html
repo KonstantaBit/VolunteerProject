@@ -38,7 +38,7 @@
     <h5 class="text-white blockky" style="text-align:center;">От имени представителя</h5>
     <div class="card shadow border-nuke border-3 blockky" style="background: #C5C6C7;">
         <div class="card-body">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% for field in form %}
                 <div class="row g-3 align-items-center">

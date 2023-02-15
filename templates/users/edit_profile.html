@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<h3 class="text-white blockky" style="text-align:center;">Регистрация Организации</h3>
+    <h5 class="text-white blockky" style="text-align:center;">От имени представителя</h5>
+    <div class="card shadow border-nuke border-3 blockky" style="background: #C5C6C7;">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="row g-3 align-items-center">
+
+                    <p style="text-align:center;">{{ field.label }}</p>
+
+                    {{ field }}
+                    {% if field.errors %}
+                        <p class="form-text" style="color: blue;">{{ field.errors }}</p>
+                    {% endif %}
+                </div>
+                <hr>
+                {% endfor %}
+                <div class="d-grid">
+                    <button type="submit" class="btn" style="background: #45A29E;">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>{% endblock %}
